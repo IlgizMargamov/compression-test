@@ -1,13 +1,15 @@
 import {encodeJmp} from "./jump.js";
 
-test(generateArrayWithLimits(0,10, 100))
-test(generateArrayWithLimits(10,100, 10))
-test(generateArrayWithLimits(100,1000, 1))
-test(generateArray(50))
-test(generateArray(100))
-test(generateArray(500))
-test(generateArray(1000))
-test(generateArray(1000))
+const testResults=[]
+testResults.push(test(generateArrayWithLimits(0,10, 100)))
+testResults.push(test(generateArrayWithLimits(10,100, 10)))
+testResults.push(test(generateArrayWithLimits(100,1000, 1)))
+testResults.push(test(generateArray(50)))
+testResults.push(test(generateArray(100)))
+testResults.push(test(generateArray(500)))
+testResults.push(test(generateArray(1000)))
+testResults.push(test(generateArray(1000)))
+console.log("\nMean coefficient after encoding: "+testResults.reduce((partialSum, a) => partialSum + a, 0)/testResults.length)
 
 function generateArrayWithLimits(lowerLimit, upperLimit, iterations){
     const result=[]
@@ -20,7 +22,7 @@ function generateArrayWithLimits(lowerLimit, upperLimit, iterations){
 }
 
 function generateArray(numberOfElements) {
-    return  Array.from({length: numberOfElements}, () => {
+    return Array.from({length: numberOfElements}, () => {
         return Math.floor(Math.random() * 300);
     });
 }
@@ -30,5 +32,7 @@ function test(arr){
         return a-b
     })
     const encoded = encodeJmp(sorted, '#')
-    console.log("Starting string: "+sorted.toString()+"\n"+"Encoded string: "+ encoded.toString("ascii")+"\nEncoded to original length: "+encoded.length/sorted.length)
+    let coefficient = encoded.length/sorted.length;
+    console.log("Starting string: "+sorted.toString()+"\n"+"Encoded string: "+ encoded.toString("ascii")+"\nEncoded to original length: "+coefficient)
+    return coefficient
 }
